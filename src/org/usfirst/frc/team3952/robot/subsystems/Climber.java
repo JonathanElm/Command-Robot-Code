@@ -10,7 +10,7 @@ public class Climber extends Subsystem {
 	public static final double CLIMB_SPEED = -0.5;
 	public static final double BREAK_STRING_SPEED = -0.3;
 	
-	Talon motor = RobotMap.coiler;
+	private Talon motor = RobotMap.coiler;
 	
     public void initDefaultCommand() {
     	setDefaultCommand(new ManualClimber());

@@ -6,6 +6,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class MoveLadderToPos extends Command {
     public static final double TIMEOUT = 8.0;
 
+    //TODO edit values for real positions (after calibration?)
     public static final int[] POSITIONS = new int[] {200, 300, 400, 500, 600, 700};
 
     public int pos;

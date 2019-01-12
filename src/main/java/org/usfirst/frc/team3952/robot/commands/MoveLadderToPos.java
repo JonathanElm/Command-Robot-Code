@@ -1,12 +1,12 @@
 package org.usfirst.frc.team3952.robot.commands;
 
 import org.usfirst.frc.team3952.robot.Robot;
-import org.usfirst.frc.team3952.robot.subsystems.Ladder;
-
 import edu.wpi.first.wpilibj.command.Command;
 
 public class MoveLadderToPos extends Command {
     public static final double TIMEOUT = 8.0;
+
+    public static final int[] POSITIONS = new int[] {200, 300, 400, 500, 600, 700};
 
     public int pos;
 
@@ -30,23 +30,23 @@ public class MoveLadderToPos extends Command {
                     Robot.ladder.retract();
                 }
                 break;
-            case 1:
-                int diff = Ladder.SWITCH_ENC - (int)Robot.ladder.encoder.getDistance();
+            case 7:
+                if(Robot.ladder.topLimit.get()) {
+                    Robot.ladder.pos = 7;
+                    Robot.ladder.stop();
+                } else {
+                    Robot.ladder.extend();
+                }
+                break;
+            default:
+                int diff = POSITIONS[pos - 1] - (int)Robot.ladder.encoder.getDistance();
                 if(Math.abs(diff) < 100) {
-                    Robot.ladder.pos = 1;
+                    Robot.ladder.pos = pos;
                     Robot.ladder.stop();
                 } else if(diff > 0) {
                     Robot.ladder.extend();
                 } else {
                     Robot.ladder.retract();
-                }
-                break;
-            case 2:
-                if(Robot.ladder.topLimit.get()) {
-                    Robot.ladder.pos = 2;
-                    Robot.ladder.stop();
-                } else {
-                    Robot.ladder.extend();
                 }
                 break;
         }

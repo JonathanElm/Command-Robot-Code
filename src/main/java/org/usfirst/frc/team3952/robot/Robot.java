@@ -30,8 +30,10 @@ public class Robot extends TimedRobot {
 	private VisionThread visionThread;
 	private UsbCamera camera;
 	
-	private double x0;
-	private double x1;
+	//[0][1] First blob center
+	//[2][3] Second blob center
+	//[4][5] Width/Height
+	private static int[] autodropInfo;
 	private final Object imageLock = new Object();
 	
 	@Override
@@ -47,25 +49,64 @@ public class Robot extends TimedRobot {
 		
 		camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(640, 480); //(160, 120)
-		//https://wpilib.screenstepslive.com/s/currentCS/m/vision/l/674733-using-generated-code-in-a-robot-program
-		visionThread = new VisionThread(camera, new GripPipeline(this), pipeline -> {
-			if(pipeline.findContoursOutput().size() == 2) {
-				//only if it finds 2 clumps
-				Moments m0 = Imgproc.moments(pipeline.findContoursOutput().get(0));
+		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
+			if(pipeline.findContoursOutput().size() >= 2) {
+				//find the two largest contour
+				int a_index = 0;
+				double a_area = 0;
+				int b_index = 0;
+				double b_area = 0;
+
+				for(int i = 0; i < pipeline.findContoursOutput().size(); i++)
+				{
+					//reduce load on cpu repetition, increase ram usage however
+					double area = Imgproc.contourArea(pipeline.findContoursOutput().get(i));
+					if(area > a_area)
+					{	
+						a_index = i;
+						a_area = area;
+					}
+				}
+
+				for(int i = 0; i < pipeline.findContoursOutput().size(); i++)
+				{
+					if(i != a_index)
+					{
+						double area = Imgproc.contourArea(pipeline.findContoursOutput().get(i));
+						if(area > b_area)
+						{	
+							b_index = i;
+							b_area = area;
+						}
+					}
+				}
+
+				Moments m0 = Imgproc.moments(pipeline.findContoursOutput().get(a_index));
 				int _x0 = (int)(m0.get_m10() / m0.get_m00());
-				
-				Moments m1 = Imgproc.moments(pipeline.findContoursOutput().get(1));
-				int _x1 = (int)(m1.get_m10()/ m0.get_m00());
+				int _y0 = (int)(m0.get_m01() / m0.get_m00());
+
+				Moments m1 = Imgproc.moments(pipeline.findContoursOutput().get(b_index));
+				int _x1 = (int)(m1.get_m10() / m1.get_m00());
+				int _y1 = (int)(m1.get_m01() / m1.get_m00());
+
+				int width = pipeline.cvErodeOutput().rows();
+				int height = pipeline.cvErodeOutput().cols();
 				
 				synchronized(imageLock) {
-					x0 = _x0;
-					x1 = _x1;
+					//autodropInfo = new int[] {distance_x, distance_y};
+					int center_x = width/2;
+					int mid_x = (_x0 + _x1)/2;
+					int distance_x = mid_x - center_x;
+
+					int center_y = height/2;
+					int mid_y = (_y0 + _y1)/2;
+					int distance_y = mid_y - center_y;
+
+					autodropInfo = new int[] {distance_x, distance_y};
 				}
-				
 			}
 		});
-		//visionThread.start();
-		
+		visionThread.start();
 	}
 
 	@Override
@@ -76,12 +117,17 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 	}
 	
+	public static int[] distanceToCenter()
+	{
+		return autodropInfo;
+	}
+
 	@Override
 	public void autonomousInit() {
 		double ax0, ax1;
 		synchronized(imageLock) {
-			ax0=x0;
-			ax1=x1;
+			ax0=autodropInfo[0];
+			ax1=autodropInfo[1];
 		}
 		SmartDashboard.putNumber("x0", ax0);
 		SmartDashboard.putNumber("x1", ax1);

@@ -16,16 +16,16 @@ public class MoveForward extends Command {
 	}
 
     protected void initialize() {
-    	initialDistance = (Robot.drive.left.getDistance() + Robot.drive.right.getDistance()) / 2;
+    	initialDistance = (Robot.drive.front_left.getDistance() + Robot.drive.front_right.getDistance()) / 2;
     }
     
     protected void execute() {
-    	double currentDistance = (Robot.drive.left.getDistance() + Robot.drive.right.getDistance()) / 2;
+    	double currentDistance = (Robot.drive.front_left.getDistance() + Robot.drive.front_right.getDistance()) / 2;
     	if(currentDistance >= initialDistance + distance - 0.1) {
     		Robot.drive.stop();
     		finished = true;
     	} else {
-    		Robot.drive.drive(0, 0.65, 0);
+    		Robot.drive.drive(0, 0.8, -0.03);
     	}
     }
     

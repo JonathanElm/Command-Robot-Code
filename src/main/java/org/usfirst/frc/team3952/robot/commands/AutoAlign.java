@@ -8,9 +8,11 @@ public class AutoAlign extends Command
 {
     public static final int MIN_DISTANCE_FROM_TARGET = 10;
 
+    private int cnt = 0;
+
     public AutoAlign()
     {
-        setTimeout(5);
+        requires(Robot.drive);
         setInterruptible(true);
     }
 
@@ -18,11 +20,16 @@ public class AutoAlign extends Command
 
     protected void execute()
     {
-        //TODO did i do it right???
-        if(Robot.distanceToCenter()[0] > 0)
-            Robot.drive.drive(0.5, 0, 0);
-        else
-            Robot.drive.drive(-0.5, 0, 0);
+        if(cnt++ % 30 <= 5) {
+            // System.out.println("AutoAlign: " + Robot.distanceToCenter()[0]);
+            //TODO did i do it right???
+            if(Robot.distanceToCenter()[0] > 0)
+                Robot.drive.drive(0.7, 0, 0);
+            else
+                Robot.drive.drive(-0.7, 0, 0);
+        } else {
+            Robot.drive.stop();
+        }
     }
 
     protected boolean isFinished()

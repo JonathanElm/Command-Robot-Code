@@ -33,7 +33,7 @@ public class Robot extends TimedRobot {
 	//[0][1] First blob center
 	//[2][3] Second blob center
 	//[4][5] Width/Height
-	private static int[] autodropInfo;
+	private static int[] autodropInfo = new int[2];
 	private final Object imageLock = new Object();
 	
 	@Override
@@ -48,7 +48,7 @@ public class Robot extends TimedRobot {
 		task = null;
 		
 		camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(640, 480); //(160, 120)
+		camera.setResolution(640, 480); //(640, 480)
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			if(pipeline.findContoursOutput().size() >= 2) {
 				//find the two largest contour
@@ -89,8 +89,8 @@ public class Robot extends TimedRobot {
 				int _x1 = (int)(m1.get_m10() / m1.get_m00());
 				int _y1 = (int)(m1.get_m01() / m1.get_m00());
 
-				int width = pipeline.cvErodeOutput().rows();
-				int height = pipeline.cvErodeOutput().cols();
+				int width = pipeline.cvErodeOutput().cols();
+				int height = pipeline.cvErodeOutput().rows();
 				
 				synchronized(imageLock) {
 					//autodropInfo = new int[] {distance_x, distance_y};
@@ -103,6 +103,7 @@ public class Robot extends TimedRobot {
 					int distance_y = mid_y - center_y;
 
 					autodropInfo = new int[] {distance_x, distance_y};
+					System.out.println(distance_x + " " + distance_y);
 				}
 			}
 		});
@@ -132,31 +133,21 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("x0", ax0);
 		SmartDashboard.putNumber("x1", ax1);
 		CommandGroup auto = new CommandGroup();
-		auto.addSequential(new MoveForward(1));
-		auto.addSequential(new Turn(90));
-		auto.addSequential(new MoveForward(1));
-		auto.addSequential(new Turn(90));
-		auto.addSequential(new MoveForward(1));
-		auto.addSequential(new Turn(90));
-		auto.addSequential(new MoveForward(1));
-		auto.addSequential(new Turn(90));
-		auto.addSequential(new MoveForward(1));
-		//Scheduler.getInstance().add(auto);
+		auto.addSequential(new AutoAlign());
+		Scheduler.getInstance().add(auto);
 		auto.close();
 	}
 	
 	@Override
 	public void autonomousPeriodic() {
-		if(task != null) {
-			new Thread(new Runnable() {
-				@Override
-				public void run() {
-					task.task();
-				}
-			}).start();
-			task = null;
-		}
 		Scheduler.getInstance().run();
+	}
+
+
+	@Override
+	public void testInit() {
+		AutoAlign a = new AutoAlign();
+		Scheduler.getInstance().add(a);
 	}
 
 	@Override
@@ -168,7 +159,9 @@ public class Robot extends TimedRobot {
 	}
 	
 	@Override
-	public void testPeriodic() {}
+	public void testPeriodic() {
+		Scheduler.getInstance().run();
+	}
 	
 	public static boolean idle() {
 		return drive.getCurrentCommandName().equals(drive.getDefaultCommandName()) && 

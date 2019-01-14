@@ -20,9 +20,10 @@ public class AutoAlign extends Command
 
     protected void execute()
     {
+        //does stepping
+        //if you want it to step farther, increase the 5 to something else
+        //if you want it to step more often, decrease the 30 i guess
         if(cnt++ % 30 <= 5) {
-            // System.out.println("AutoAlign: " + Robot.distanceToCenter()[0]);
-            //TODO did i do it right???
             if(Robot.distanceToCenter()[0] > 0)
                 Robot.drive.drive(0.7, 0, 0);
             else
@@ -34,6 +35,7 @@ public class AutoAlign extends Command
 
     protected boolean isFinished()
     {
+        //10 is stop distance
         if(Math.abs(Robot.distanceToCenter()[0]) < 10)
         {
             Robot.drive.stop();

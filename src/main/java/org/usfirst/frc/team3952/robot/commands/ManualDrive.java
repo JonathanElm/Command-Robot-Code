@@ -17,28 +17,36 @@ public class ManualDrive extends Command {
 
     protected void initialize() {}
 
+    double rotateBy = 0;
+
     protected void execute() {
     	double hor = Robot.controller.getHorizontalMovement();
     	double lat = Robot.controller.getLateralMovement();
         double rot = Robot.controller.getRotation();
+
+        //Calibration (to hardcode)
+        //Change true to false to calibrate
+        if(true)
+        {
+            Robot.drive.drive(hor, lat, rot);
+            return;
+        }
+        else if (lat < 0.4) return;
+
+        Robot.drive.drive(0, 1, rot + rotateBy);
         
-        //calibration
-        /*
-        if(hor <= 0.1 && rot <= 0.1 && lat >= 0.5)
-		{
-            double maxDistance = 0;
-            for(Encoder e : encoders)
-                if(e.getDistance() > maxDistance)
-                    maxDistance = e.getDistance();
-            if(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontRightEncoder.getDistance() < -10 &&
-            RobotMap.rearLeftEncoder.getDistance() - RobotMap.rearRightEncoder.getDistance() < -10)
-                rot += 0.2;
-            else if(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontRightEncoder.getDistance() > 10 &&
-            RobotMap.rearLeftEncoder.getDistance() - RobotMap.rearRightEncoder.getDistance() > 10)
-                rot -= 0.2;
-		}
-        */
-        Robot.drive.drive(hor, lat, rot);
+        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()) > 5)
+            System.out.println("Probably a hardware problem on the left side of wheels; detected a distance of "
+            + (RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()));
+        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()) > 5)
+            System.out.println("Probably a hardware problem on the left side of wheels; detected a distance of "
+            + (RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()));
+
+        RobotMap.frontLeftEncoder.reset();
+        RobotMap.frontRightEncoder.reset();
+        RobotMap.rearLeftEncoder.reset();
+        RobotMap.rearRightEncoder.reset();
+        System.out.println("Rotation Factor (forwards): " + rotateBy);
     }
 
     protected boolean isFinished() {

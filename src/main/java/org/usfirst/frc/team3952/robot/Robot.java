@@ -103,7 +103,6 @@ public class Robot extends TimedRobot {
 					int distance_y = mid_y - center_y;
 
 					autodropInfo = new int[] {distance_x, distance_y};
-					System.out.println(distance_x + " " + distance_y);
 				}
 			}
 		});
@@ -143,13 +142,6 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 	}
 
-
-	@Override
-	public void testInit() {
-		AutoAlign a = new AutoAlign();
-		Scheduler.getInstance().add(a);
-	}
-
 	@Override
 	public void teleopInit() {}
 
@@ -157,6 +149,9 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 	}
+	
+	@Override
+	public void testInit() {}
 	
 	@Override
 	public void testPeriodic() {

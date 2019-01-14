@@ -28,6 +28,9 @@ public class RobotMap {
 	public static final int LADDER_BOTTOM_LIMIT_PORT = 7;
 	public static final int CLAW_OPENING_LIMIT_PORT = 8;
 	public static final int CLAW_CLOSING_LIMIT_PORT = 9;
+
+	public static final int SOLENOID_PORT_1 = 0;
+	public static final int SOLENOID_PORT_2 = 1;
 	
 	public static Talon frontLeftWheel;
 	public static Talon frontRightWheel;
@@ -47,6 +50,7 @@ public class RobotMap {
 	public static DigitalInput ladderBottomLimit;
 	public static DigitalInput clawOpeningLimit;
 	public static DigitalInput clawClosingLimit;
+	public static Solenoid solenoid;
 	
 	public static void init() {
 		frontLeftWheel = new Talon(FRONT_LEFT_WHEEL_PORT);
@@ -56,14 +60,14 @@ public class RobotMap {
 		drive = new MecanumDrive(frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel);
 
 		frontLeftEncoder = new Encoder(FRONT_LEFT_ENCODER_PORT_1,FRONT_LEFT_ENCODER_PORT_2, false, Encoder.EncodingType.k1X);
-		frontLeftEncoder.setDistancePerPulse(0.00677);
+		//frontLeftEncoder.setDistancePerPulse(0.00677);
 		frontRightEncoder = new Encoder(FRONT_RIGHT_ENCODER_PORT_1, FRONT_RIGHT_ENCODER_PORT_2, false, Encoder.EncodingType.k1X);
-		frontRightEncoder.setDistancePerPulse(0.0078);
+		//frontRightEncoder.setDistancePerPulse(0.0078);
 		
 		rearLeftEncoder = new Encoder(REAR_LEFT_ENCODER_PORT_1, REAR_LEFT_ENCODER_PORT_2, false, Encoder.EncodingType.k1X);
-		rearLeftEncoder.setDistancePerPulse(0.00677);
+		//rearLeftEncoder.setDistancePerPulse(0.00677);
 		rearRightEncoder = new Encoder(REAR_RIGHT_ENCODER_PORT_1, REAR_RIGHT_ENCODER_PORT_2, false, Encoder.EncodingType.k1X);
-		rearRightEncoder.setDistancePerPulse(0.0078);
+		//rearRightEncoder.setDistancePerPulse(0.0078);
 
 		gyro = new ADXRS450_Gyro();
 		ladder = new Talon(LADDER_PORT);
@@ -74,5 +78,6 @@ public class RobotMap {
 		//ladderBottomLimit = new DigitalInput(LADDER_BOTTOM_LIMIT_PORT);
 		//clawOpeningLimit = new DigitalInput(CLAW_OPENING_LIMIT_PORT);
 		//clawClosingLimit = new DigitalInput(CLAW_CLOSING_LIMIT_PORT);
+		solenoid = new Solenoid(SOLENOID_PORT_1, SOLENOID_PORT_2);
 	}
 }

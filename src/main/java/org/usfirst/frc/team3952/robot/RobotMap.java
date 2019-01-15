@@ -50,7 +50,7 @@ public class RobotMap {
 	public static DigitalInput ladderBottomLimit;
 	public static DigitalInput clawOpeningLimit;
 	public static DigitalInput clawClosingLimit;
-	public static Solenoid solenoid;
+	public static DoubleSolenoid solenoid;
 	
 	public static void init() {
 		frontLeftWheel = new Talon(FRONT_LEFT_WHEEL_PORT);
@@ -78,6 +78,7 @@ public class RobotMap {
 		//ladderBottomLimit = new DigitalInput(LADDER_BOTTOM_LIMIT_PORT);
 		//clawOpeningLimit = new DigitalInput(CLAW_OPENING_LIMIT_PORT);
 		//clawClosingLimit = new DigitalInput(CLAW_CLOSING_LIMIT_PORT);
-		solenoid = new Solenoid(SOLENOID_PORT_1, SOLENOID_PORT_2);
+		//TODO yes
+		//solenoid = new DoubleSolenoid(SOLENOID_PORT_1, SOLENOID_PORT_2);
 	}
 }

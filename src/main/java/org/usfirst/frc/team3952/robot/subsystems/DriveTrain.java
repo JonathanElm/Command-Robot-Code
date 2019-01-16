@@ -11,8 +11,12 @@ import edu.wpi.first.wpilibj.drive.MecanumDrive;
 public class DriveTrain extends Subsystem {
 	private MecanumDrive drive = RobotMap.drive;
 	
-	public Encoder left = RobotMap.leftEncoder;
-	public Encoder right = RobotMap.rightEncoder;
+	public Encoder front_left = RobotMap.frontLeftEncoder;
+	public Encoder front_right = RobotMap.frontRightEncoder;
+	
+	public Encoder right_left = RobotMap.rearLeftEncoder;
+	public Encoder right_right = RobotMap.rearRightEncoder;
+
 	public ADXRS450_Gyro gyro = RobotMap.gyro;
 	
     public void initDefaultCommand() {

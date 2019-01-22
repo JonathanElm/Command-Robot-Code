@@ -34,6 +34,9 @@ public class ManualDrive extends Command {
         else if (lat < 0.4) return;
 
         Robot.drive.drive(0, 1, rot + rotateBy);
+
+        //Trigger by encoder (which is inaccurate, avoid usage???)
+        /*
         
         if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.rearLeftEncoder.getDistance()) > 5)
             System.out.println("Probably a hardware problem on the left side of wheels; detected a distance of "
@@ -53,6 +56,11 @@ public class ManualDrive extends Command {
             rotateBy -= 0.01;
 
         System.out.println("Rotation Factor (forwards): " + rotateBy);
+        */
+
+        //Trigger by controller
+        if(Robot.controller.coil())
+            System.out.println("Triggered at rotational value " +  rot);
     }
 
     protected boolean isFinished() {

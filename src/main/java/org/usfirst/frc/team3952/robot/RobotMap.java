@@ -78,7 +78,6 @@ public class RobotMap {
 		//ladderBottomLimit = new DigitalInput(LADDER_BOTTOM_LIMIT_PORT);
 		//clawOpeningLimit = new DigitalInput(CLAW_OPENING_LIMIT_PORT);
 		//clawClosingLimit = new DigitalInput(CLAW_CLOSING_LIMIT_PORT);
-		//TODO yes
-		//solenoid = new DoubleSolenoid(SOLENOID_PORT_1, SOLENOID_PORT_2);
+		solenoid = new DoubleSolenoid(SOLENOID_PORT_1, SOLENOID_PORT_2);
 	}
 }

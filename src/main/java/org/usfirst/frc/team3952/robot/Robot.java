@@ -9,6 +9,7 @@ import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.vision.VisionThread;
 
+import org.usfirst.frc.team3952.robot.subsystems.BallHolder;
 import org.usfirst.frc.team3952.robot.subsystems.Claw;
 import org.usfirst.frc.team3952.robot.subsystems.Climber;
 import org.usfirst.frc.team3952.robot.subsystems.DriveTrain;
@@ -23,6 +24,7 @@ public class Robot extends TimedRobot {
 	public static Ladder ladder;
 	public static Claw claw;
 	public static Climber climber;
+	public static BallHolder ballholder;
 	
 	public static KarelTask task;
 	
@@ -44,11 +46,12 @@ public class Robot extends TimedRobot {
 		ladder = new Ladder();
 		claw = new Claw();
 		climber = new Climber();
+		ballholder = new BallHolder();
 		
 		task = null;
 		
 		camera = CameraServer.getInstance().startAutomaticCapture();
-		camera.setResolution(640, 480); //(640, 480)
+		camera.setResolution(160, 120); //(640, 480)
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
 			if(pipeline.findContoursOutput().size() >= 2) {
 				//find the two largest contour
@@ -162,6 +165,7 @@ public class Robot extends TimedRobot {
 		return drive.getCurrentCommandName().equals(drive.getDefaultCommandName()) && 
 			   ladder.getCurrentCommandName().equals(ladder.getDefaultCommandName()) && 
 			   claw.getCurrentCommandName().equals(claw.getDefaultCommandName()) && 
-			   climber.getCurrentCommandName().equals(climber.getDefaultCommandName());
+			   climber.getCurrentCommandName().equals(climber.getDefaultCommandName()) &&
+			   ballholder.getCurrentCommandName().equals(ballholder.getDefaultCommandName());
 	}
 }

@@ -7,8 +7,6 @@ import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ManualBallHolder extends Command {
-
-	public Encoder[] encoders = new Encoder[] { RobotMap.frontLeftEncoder, RobotMap.frontRightEncoder, RobotMap.rearLeftEncoder, RobotMap.rearRightEncoder };
     
     public ManualBallHolder() {
         requires(Robot.drive);
@@ -20,7 +18,7 @@ public class ManualBallHolder extends Command {
     double rotateBy = 0;
 
     protected void execute() {
-    	
+        //TODO controller button-inos
     }
 
     protected boolean isFinished() {

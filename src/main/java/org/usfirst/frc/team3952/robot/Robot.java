@@ -14,8 +14,12 @@ import org.usfirst.frc.team3952.robot.subsystems.Claw;
 import org.usfirst.frc.team3952.robot.subsystems.Climber;
 import org.usfirst.frc.team3952.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3952.robot.subsystems.Ladder;
+
+import java.util.ArrayList;
+
 import org.opencv.imgproc.Imgproc;
 import org.opencv.imgproc.Moments;
+import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team3952.robot.commands.*;
 
 public class Robot extends TimedRobot {
@@ -57,7 +61,7 @@ public class Robot extends TimedRobot {
 			if(contours.size() >= 2) {
 				//find the two largest contour
 
-				contours.sort((a, b) -> Imgproc.contourArea(a) - Imgproc.contourArea(b));
+				contours.sort((a, b) -> (int) (Imgproc.contourArea(a) - Imgproc.contourArea(b)));
 
 				Moments m0 = Imgproc.moments(contours.get(contours.size()-1));
 				int _x0 = (int)(m0.get_m10() / m0.get_m00());

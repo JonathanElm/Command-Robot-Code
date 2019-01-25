@@ -3,7 +3,6 @@ package org.usfirst.frc.team3952.robot.subsystems;
 import org.usfirst.frc.team3952.robot.Robot;
 import org.usfirst.frc.team3952.robot.RobotMap;
 import org.usfirst.frc.team3952.robot.commands.ManualBallHolder;
-import org.usfirst.frc.team3952.robot.commands.ManualClaw;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;

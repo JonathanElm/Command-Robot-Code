@@ -10,8 +10,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.vision.VisionThread;
 
 import org.usfirst.frc.team3952.robot.subsystems.BallHolder;
-import org.usfirst.frc.team3952.robot.subsystems.Claw;
-import org.usfirst.frc.team3952.robot.subsystems.Climber;
 import org.usfirst.frc.team3952.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3952.robot.subsystems.Ladder;
 
@@ -26,8 +24,6 @@ public class Robot extends TimedRobot {
 	public static Controller controller;
 	public static DriveTrain drive;
 	public static Ladder ladder;
-	public static Claw claw;
-	public static Climber climber;
 	public static BallHolder ballholder;
 	
 	public static KarelTask task;
@@ -48,8 +44,6 @@ public class Robot extends TimedRobot {
 		controller = new Controller(new Joystick(0));
 		drive = new DriveTrain();
 		ladder = new Ladder();
-		claw = new Claw();
-		climber = new Climber();
 		ballholder = new BallHolder();
 		
 		task = null;
@@ -143,8 +137,6 @@ public class Robot extends TimedRobot {
 	public static boolean idle() {
 		return drive.getCurrentCommandName().equals(drive.getDefaultCommandName()) && 
 			   ladder.getCurrentCommandName().equals(ladder.getDefaultCommandName()) && 
-			   claw.getCurrentCommandName().equals(claw.getDefaultCommandName()) && 
-			   climber.getCurrentCommandName().equals(climber.getDefaultCommandName()) &&
 			   ballholder.getCurrentCommandName().equals(ballholder.getDefaultCommandName());
 	}
 }

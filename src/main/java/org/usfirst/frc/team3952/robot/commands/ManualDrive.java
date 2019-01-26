@@ -24,30 +24,7 @@ public class ManualDrive extends Command {
     	double lat = Robot.controller.getLateralMovement();
         double rot = Robot.controller.getRotation();
 
-        //Calibration (to hardcode)
-        //Change true to false to calibrate
-        if(true)
-        {
-            Robot.drive.drive(hor, lat, rot);
-            return;
-        }
-        else if (lat < 0.4) return;
-
-        Robot.drive.drive(0, 0.3, rot + rotateBy);
-        
-        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.rearLeftEncoder.getDistance()) > 0.2)
-            System.out.println("Probably a hardware problem on the left side of wheels; detected a distance of "
-            + (RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()));
-        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()) > 0.20)
-            System.out.println("Probably a hardware problem on the right side of wheels; detected a distance of "
-            + (RobotMap.frontRightEncoder.getDistance() - RobotMap.rearRightEncoder.getDistance()));
-
-        RobotMap.frontLeftEncoder.reset();
-        RobotMap.frontRightEncoder.reset();
-        RobotMap.rearLeftEncoder.reset();
-        RobotMap.rearRightEncoder.reset();
-
-        System.out.println("Rotation Factor (forwards): " + rotateBy);
+        Robot.drive.drive(hor, lat, rot);
     }
 
     protected boolean isFinished() {

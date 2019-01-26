@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class Ladder extends Subsystem {
-	public static final int SWITCH_ENC = 2000;
+	public static final int[] SWITCH_ENC = {0,1,2,3,4,5,6,7};
+	public static final int FIXED_AMOUNT = 0;
 	public static final double LADDER_EXTENDING_SPEED = 0.65;
 	public static final double LADDER_RETRACTING_SPEED = 0.4;
 	

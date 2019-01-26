@@ -33,12 +33,12 @@ public class ManualDrive extends Command {
         }
         else if (lat < 0.4) return;
 
-        Robot.drive.drive(0, 1, rot + rotateBy);
+        Robot.drive.drive(0, 0.3, rot + rotateBy);
         
-        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.rearLeftEncoder.getDistance()) > 5)
+        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.rearLeftEncoder.getDistance()) > 0.2)
             System.out.println("Probably a hardware problem on the left side of wheels; detected a distance of "
             + (RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()));
-        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()) > 5)
+        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()) > 0.20)
             System.out.println("Probably a hardware problem on the right side of wheels; detected a distance of "
             + (RobotMap.frontRightEncoder.getDistance() - RobotMap.rearRightEncoder.getDistance()));
 
@@ -46,11 +46,6 @@ public class ManualDrive extends Command {
         RobotMap.frontRightEncoder.reset();
         RobotMap.rearLeftEncoder.reset();
         RobotMap.rearRightEncoder.reset();
-
-        if(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontRightEncoder.getDistance() > 5)
-            rotateBy += 0.01;
-        else if(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontRightEncoder.getDistance() < -5)
-            rotateBy -= 0.01;
 
         System.out.println("Rotation Factor (forwards): " + rotateBy);
     }

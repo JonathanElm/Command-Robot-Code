@@ -60,9 +60,9 @@ public class RobotMap {
 		drive = new MecanumDrive(frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel);
 
 		frontLeftEncoder = new Encoder(FRONT_LEFT_ENCODER_PORT_1,FRONT_LEFT_ENCODER_PORT_2, false, Encoder.EncodingType.k1X);
-		//frontLeftEncoder.setDistancePerPulse(0.00677);
+		frontLeftEncoder.setDistancePerPulse(-0.007266115676069 * 2);
 		frontRightEncoder = new Encoder(FRONT_RIGHT_ENCODER_PORT_1, FRONT_RIGHT_ENCODER_PORT_2, false, Encoder.EncodingType.k1X);
-		//frontRightEncoder.setDistancePerPulse(0.0078);
+		frontRightEncoder.setDistancePerPulse(-0.007604813285879 * 2);
 		
 		rearLeftEncoder = new Encoder(REAR_LEFT_ENCODER_PORT_1, REAR_LEFT_ENCODER_PORT_2, false, Encoder.EncodingType.k1X);
 		//rearLeftEncoder.setDistancePerPulse(0.00677);

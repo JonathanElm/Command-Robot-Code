@@ -132,7 +132,8 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putNumber("x0", ax0);
 		SmartDashboard.putNumber("x1", ax1);
 		CommandGroup auto = new CommandGroup();
-		auto.addSequential(new AutoAlign());
+		//auto.addSequential(new AutoAlign());
+		auto.addSequential(new MoveForward(17));
 		Scheduler.getInstance().add(auto);
 		auto.close();
 	}

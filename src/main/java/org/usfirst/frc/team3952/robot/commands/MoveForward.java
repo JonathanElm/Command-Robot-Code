@@ -21,12 +21,12 @@ public class MoveForward extends Command {
     
     protected void execute() {
     	double currentDistance = (Robot.drive.front_left.getDistance() + Robot.drive.front_right.getDistance()) / 2;
-    	if(currentDistance >= initialDistance + distance - 0.1) {
+    	if(currentDistance >= initialDistance + distance - 0.01) {
     		Robot.drive.stop();
     		finished = true;
     	} else {
-    		Robot.drive.drive(0, 0.8, -0.03);
-    	}
+    		Robot.drive.drive(0, 0.3, -0.015);
+		}		
     }
     
     protected boolean isFinished() {

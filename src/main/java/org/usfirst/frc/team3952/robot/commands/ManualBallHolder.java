@@ -1,10 +1,7 @@
 package org.usfirst.frc.team3952.robot.commands;
 
 import org.usfirst.frc.team3952.robot.Robot;
-import org.usfirst.frc.team3952.robot.RobotMap;
-import org.usfirst.frc.team3952.robot.subsystems.BallHolder;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Command;
 
 public class ManualBallHolder extends Command {

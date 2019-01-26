@@ -24,43 +24,7 @@ public class ManualDrive extends Command {
     	double lat = Robot.maincontroller.getLateralMovement();
         double rot = Robot.maincontroller.getRotation();
 
-        //Calibration (to hardcode)
-        //Change true to false to calibrate
-        if(true)
-        {
-            Robot.drive.drive(hor, lat, rot);
-            return;
-        }
-        else if (lat < 0.4) return;
-
-        Robot.drive.drive(0, 1, rot + rotateBy);
-
-        //Trigger by encoder (which is inaccurate, avoid usage???)
-        /*
-        
-        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.rearLeftEncoder.getDistance()) > 5)
-            System.out.println("Probably a hardware problem on the left side of wheels; detected a distance of "
-            + (RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()));
-        if(Math.abs(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontLeftEncoder.getDistance()) > 5)
-            System.out.println("Probably a hardware problem on the right side of wheels; detected a distance of "
-            + (RobotMap.frontRightEncoder.getDistance() - RobotMap.rearRightEncoder.getDistance()));
-
-        RobotMap.frontLeftEncoder.reset();
-        RobotMap.frontRightEncoder.reset();
-        RobotMap.rearLeftEncoder.reset();
-        RobotMap.rearRightEncoder.reset();
-
-        if(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontRightEncoder.getDistance() > 5)
-            rotateBy += 0.01;
-        else if(RobotMap.frontLeftEncoder.getDistance() - RobotMap.frontRightEncoder.getDistance() < -5)
-            rotateBy -= 0.01;
-
-        System.out.println("Rotation Factor (forwards): " + rotateBy);
-        */
-
-        //Trigger by controller
-        if(Robot.controller.coil())
-            System.out.println("Triggered at rotational value " +  rot);
+        Robot.drive.drive(hor, lat, rot);
     }
 
     protected boolean isFinished() {

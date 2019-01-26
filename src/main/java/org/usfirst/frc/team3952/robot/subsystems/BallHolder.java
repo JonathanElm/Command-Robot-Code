@@ -1,6 +1,5 @@
 package org.usfirst.frc.team3952.robot.subsystems;
 
-import org.usfirst.frc.team3952.robot.Robot;
 import org.usfirst.frc.team3952.robot.RobotMap;
 import org.usfirst.frc.team3952.robot.commands.ManualBallHolder;
 

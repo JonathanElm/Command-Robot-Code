@@ -21,7 +21,8 @@ import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team3952.robot.commands.*;
 
 public class Robot extends TimedRobot {
-	public static Controller controller;
+	public static Controller maincontroller;
+	public static Controller laddercontroller;
 	public static DriveTrain drive;
 	public static Ladder ladder;
 	public static BallHolder ballholder;
@@ -41,7 +42,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-		controller = new Controller(new Joystick(0));
+		maincontroller = new Controller(new Joystick(0), true);
+		laddercontroller = new Controller(new Joystick(1), false);
 		drive = new DriveTrain();
 		ladder = new Ladder();
 		ballholder = new BallHolder();

@@ -20,9 +20,9 @@ public class ManualDrive extends Command {
     double rotateBy = 0;
 
     protected void execute() {
-    	double hor = Robot.controller.getHorizontalMovement();
-    	double lat = Robot.controller.getLateralMovement();
-        double rot = Robot.controller.getRotation();
+    	double hor = Robot.maincontroller.getHorizontalMovement();
+    	double lat = Robot.maincontroller.getLateralMovement();
+        double rot = Robot.maincontroller.getRotation();
 
         //Calibration (to hardcode)
         //Change true to false to calibrate

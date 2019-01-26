@@ -13,9 +13,9 @@ public class ManualLadder extends Command {
     protected void initialize() {}
     
     protected void execute() {
-    	if(Robot.maincontroller.extendLadder()) {
+    	if(Robot.mainController.extendLadder()) {
 			Robot.ladder.extend();
-		} else if(Robot.maincontroller.retractLadder()) {
+		} else if(Robot.mainController.retractLadder()) {
 			Robot.ladder.retract();
 		} else {
 			Robot.ladder.stop();

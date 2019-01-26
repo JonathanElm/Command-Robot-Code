@@ -7,7 +7,7 @@ import edu.wpi.first.wpilibj.command.Command;
 public class ManualBallHolder extends Command {
     
     public ManualBallHolder() {
-        requires(Robot.ballholder);
+        requires(Robot.ballHolder);
         setInterruptible(true);
     }
 
@@ -16,8 +16,8 @@ public class ManualBallHolder extends Command {
     double rotateBy = 0;
 
     protected void execute() {
-        Robot.ballholder.shoot();
-        Robot.ballholder.retract();
+        Robot.ballHolder.shoot();
+        Robot.ballHolder.retract();
     }
 
     protected boolean isFinished() {

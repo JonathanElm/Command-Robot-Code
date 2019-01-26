@@ -25,8 +25,10 @@ public class RobotMap {
 	public static final int LADDER_TOP_LIMIT_PORT = 6;
 	public static final int LADDER_BOTTOM_LIMIT_PORT = 7;
 
-	public static final int SOLENOID_PORT_1 = 0;
-	public static final int SOLENOID_PORT_2 = 1;
+	public static final int BALL_SOLENOID_PORT_1 = 0;
+	public static final int BALL_SOLENOID_PORT_2 = 1;
+	public static final int DISC_SOLENOID_PORT_1 = 2;
+	public static final int DISC_SOLENOID_PORT_2 = 3;
 	
 	public static Talon frontLeftWheel;
 	public static Talon frontRightWheel;
@@ -42,7 +44,8 @@ public class RobotMap {
 	public static Encoder ladderEncoder;
 	public static DigitalInput ladderTopLimit;
 	public static DigitalInput ladderBottomLimit;
-	public static DoubleSolenoid solenoid;
+	public static DoubleSolenoid ballSolenoid;
+	public static DoubleSolenoid discSolenoid;
 	
 	public static void init() {
 		frontLeftWheel = new Talon(FRONT_LEFT_WHEEL_PORT);
@@ -64,6 +67,7 @@ public class RobotMap {
 		gyro = new ADXRS450_Gyro();
 		ladder = new Talon(LADDER_PORT);
 		ladderEncoder = new Encoder(LADDER_ENCODER_PORT_1, LADDER_ENCODER_PORT_2, false, Encoder.EncodingType.k2X);
-		solenoid = new DoubleSolenoid(SOLENOID_PORT_1, SOLENOID_PORT_2);
+		ballSolenoid = new DoubleSolenoid(BALL_SOLENOID_PORT_1, BALL_SOLENOID_PORT_2);
+		discSolenoid = new DoubleSolenoid(DISC_SOLENOID_PORT_1, DISC_SOLENOID_PORT_2);
 	}
 }

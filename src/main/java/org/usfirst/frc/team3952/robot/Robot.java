@@ -1,55 +1,55 @@
 package org.usfirst.frc.team3952.robot;
 
-import edu.wpi.cscore.UsbCamera;
-import edu.wpi.first.cameraserver.CameraServer;
+import edu.wpi.first.networktables.*;
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-import edu.wpi.first.vision.VisionThread;
 
 import org.usfirst.frc.team3952.robot.subsystems.BallHolder;
+import org.usfirst.frc.team3952.robot.subsystems.DiscHolder;
 import org.usfirst.frc.team3952.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team3952.robot.subsystems.Ladder;
 
-import java.util.ArrayList;
-
-import org.opencv.imgproc.Imgproc;
-import org.opencv.imgproc.Moments;
-import org.opencv.core.MatOfPoint;
 import org.usfirst.frc.team3952.robot.commands.*;
 
 public class Robot extends TimedRobot {
-	public static Controller maincontroller;
-	public static Controller laddercontroller;
+	public static Controller mainController;
+	public static Controller ladderController;
 	public static DriveTrain drive;
 	public static Ladder ladder;
-	public static BallHolder ballholder;
+	public static BallHolder ballHolder;
+	public static DiscHolder discHolder;
+	public static NetworkTableInstance ntinst;
+	public static NetworkTable ntable;
+
+	public static NetworkTableEntry autoAlignX;
+	public static NetworkTableEntry autoAlignY;
 	
 	public static KarelTask task;
 	
 	public static int startMillis;
-	private VisionThread visionThread;
-	private UsbCamera camera;
-	
-	//[0][1] First blob center
-	//[2][3] Second blob center
-	//[4][5] Width/Height
-	private static int[] autodropInfo = new int[2];
-	private final Object imageLock = new Object();
+	//private VisionThread visionThread;
+	//private UsbCamera camera;
 	
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-		maincontroller = new Controller(new Joystick(0), true);
-		laddercontroller = new Controller(new Joystick(1), false);
+		mainController = new Controller(new Joystick(0), true);
+		ladderController = new Controller(new Joystick(1), false);
 		drive = new DriveTrain();
 		ladder = new Ladder();
-		ballholder = new BallHolder();
-		
+		ballHolder = new BallHolder();
+		discHolder = new DiscHolder();
+		ntinst = NetworkTableInstance.getDefault();
+		ntable = ntinst.getTable("datatable");
+		autoAlignX = ntable.getEntry("movex");
+		autoAlignY = ntable.getEntry("movey");
+
 		task = null;
-		
+		/*
+		Handled by co-processor.
+
 		camera = CameraServer.getInstance().startAutomaticCapture();
 		camera.setResolution(160, 120); //(640, 480)
 		visionThread = new VisionThread(camera, new GripPipeline(), pipeline -> {
@@ -85,6 +85,7 @@ public class Robot extends TimedRobot {
 			}
 		});
 		visionThread.start();
+		*/
 	}
 
 	@Override
@@ -97,21 +98,13 @@ public class Robot extends TimedRobot {
 	
 	public static int[] distanceToCenter()
 	{
-		return autodropInfo;
+		return new int[] {autoAlignX.getNumber(0).intValue(), autoAlignY.getNumber(0).intValue()};
 	}
 
 	@Override
 	public void autonomousInit() {
-		double ax0, ax1;
-		synchronized(imageLock) {
-			ax0=autodropInfo[0];
-			ax1=autodropInfo[1];
-		}
-		SmartDashboard.putNumber("x0", ax0);
-		SmartDashboard.putNumber("x1", ax1);
 		CommandGroup auto = new CommandGroup();
-		//auto.addSequential(new AutoAlign());
-		auto.addSequential(new MoveForward(17));
+		auto.addSequential(new AutoAlign());
 		Scheduler.getInstance().add(auto);
 		auto.close();
 	}
@@ -140,6 +133,6 @@ public class Robot extends TimedRobot {
 	public static boolean idle() {
 		return drive.getCurrentCommandName().equals(drive.getDefaultCommandName()) && 
 			   ladder.getCurrentCommandName().equals(ladder.getDefaultCommandName()) && 
-			   ballholder.getCurrentCommandName().equals(ballholder.getDefaultCommandName());
+			   ballHolder.getCurrentCommandName().equals(ballHolder.getDefaultCommandName());
 	}
 }

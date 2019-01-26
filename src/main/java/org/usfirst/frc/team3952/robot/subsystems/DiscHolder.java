@@ -6,8 +6,8 @@ import org.usfirst.frc.team3952.robot.commands.ManualBallHolder;
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
-public class BallHolder extends Subsystem {	
-	private DoubleSolenoid piston = RobotMap.ballSolenoid;
+public class DiscHolder extends Subsystem {	
+	private DoubleSolenoid piston = RobotMap.discSolenoid;
 	
 	public boolean extended;
 	
@@ -37,4 +37,3 @@ public class BallHolder extends Subsystem {
         piston.set(DoubleSolenoid.Value.kOff);
     }
 }
-

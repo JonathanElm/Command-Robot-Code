@@ -15,10 +15,11 @@ public class Controller {
 
     public Joystick joystick;
 
-    // MAP(extendLadder, retractLadder, ball drop, ball retract, grab, release)
+    // MAP(manualExtendLadder, manualRetractLadder, ball drop, ball retract, grab, release)
     final static int[] SIDEWINDER_MAP = {3, 4, 1, 2, 7, 6};
 
     // MAP(literally every level of the ladder)
+    // used to be known as the BAD_CONTROLLER
     final static int[] LUCAS_CONTROLLER = {1, 2, 3, 4, 5};
 
     int[] currentController;
@@ -62,6 +63,15 @@ public class Controller {
         return joystick.getRawButton(currentController[3]);
     }
 
+    public boolean grabDisc() {
+        return joystick.getRawButton(currentController[4]);
+    }
+
+    public boolean releaseDisc() {
+        return joystick.getRawButton(currentController[5]);
+    }
+
+    //For the bad/Lucas controller
     public boolean goToLadder(int level)
     {
         return joystick.getRawButton(level);

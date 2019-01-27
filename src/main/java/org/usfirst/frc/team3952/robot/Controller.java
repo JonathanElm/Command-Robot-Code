@@ -13,60 +13,23 @@ public class Controller {
     public double maxT = 0.4;
     public double kT = (maxT - cT) / Math.log(2 - deadzoneT);
 
-    public enum Map {
-        // MAP(extendLadder, retractLadder, coil1, coil2, unsafeOpenClaw, unsafeCloseClaw, turnLeft, turnRight)
-        SIDEWINDER_CONTROLLER(3, 4, 7, 5, 1, 5),
-        BAD_CONTROLLER(6, 7, 8, 9, 12, 1, 4, 5);
-
-        private int[] buttons;
-
-        Map(int... buttons) {
-            this.buttons = buttons;
-        }
-
-        public int extendLadder() {
-            return buttons[0];
-        }
-
-        public int retractLadder() {
-            return buttons[1];
-        }
-
-        public int coil1() {
-            return buttons[2];
-        }
-
-        public int coil2() {
-            return buttons[3];
-        }
-
-        public int unsafeOpenClaw() {
-            return buttons[4];
-        }
-
-        public int unsafeCloseClaw() {
-            return buttons[5];
-        }
-
-        public int turnLeft() {
-            return buttons[6];
-        }
-
-        public int turnRight() {
-            return buttons[7];
-        }
-
-        public boolean turnButtons() {
-            return buttons.length > 6;
-        }
-    }
-
     public Joystick joystick;
-    public Map map;
 
-    public Controller(Joystick joystick) {
+    // MAP(manualExtendLadder, manualRetractLadder, ball drop, ball retract, grab, release)
+    final static int[] SIDEWINDER_MAP = {3, 4, 1, 2, 7, 6};
+
+    // MAP(literally every level of the ladder)
+    // used to be known as the BAD_CONTROLLER
+    final static int[] LUCAS_CONTROLLER = {1, 2, 3, 4, 5};
+
+    int[] currentController;
+
+    public Controller(Joystick joystick, boolean isMain) {
         this.joystick = joystick;
-        using(Map.SIDEWINDER_CONTROLLER);
+        if(isMain)
+            currentController = SIDEWINDER_MAP;
+        else
+            currentController = LUCAS_CONTROLLER;
     }
 
     public double getHorizontalMovement() {
@@ -80,35 +43,37 @@ public class Controller {
     }
 
     public double getRotation() {
-        if(map.turnButtons()) {
-            return joystick.getRawButton(map.turnLeft()) ? -0.4 : joystick.getRawButton(map.turnRight()) ? 0.4 : 0;
-        } else {
-            double t = joystick.getZ();
-            return Math.abs(t) >= deadzoneT ? kT * Math.signum(t) * (Math.log(Math.abs(t) + 1 - deadzoneT) + cT) : 0;
-        }
+        double t = joystick.getZ();
+        return Math.abs(t) >= deadzoneT ? kT * Math.signum(t) * (Math.log(Math.abs(t) + 1 - deadzoneT) + cT) : 0;
     }
 
     public boolean extendLadder() {
-        return joystick.getRawButton(map.extendLadder());
+        return joystick.getRawButton(currentController[0]);
     }
 
     public boolean retractLadder() {
-        return joystick.getRawButton(map.retractLadder());
+        return joystick.getRawButton(currentController[1]);
     }
 
-    public boolean coil() {
-        return joystick.getRawButton(map.coil1()) && joystick.getRawButton(map.coil2());
+    public boolean shootBallHolder() {
+        return joystick.getRawButton(currentController[2]);
     }
 
-    public boolean unsafeOpenClaw() {
-        return joystick.getRawButton(map.unsafeOpenClaw());
+    public boolean retractBallHolder() {
+        return joystick.getRawButton(currentController[3]);
     }
 
-    public boolean unsafeCloseClaw() {
-        return joystick.getRawButton(map.unsafeCloseClaw());
+    public boolean grabDisc() {
+        return joystick.getRawButton(currentController[4]);
     }
 
-    public void using(Map map) {
-        this.map = map;
+    public boolean releaseDisc() {
+        return joystick.getRawButton(currentController[5]);
+    }
+
+    //For the bad/Lucas controller
+    public boolean goToLadder(int level)
+    {
+        return joystick.getRawButton(level);
     }
 }

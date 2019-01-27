@@ -71,7 +71,6 @@ public abstract class KarelTask {
 	}
 	
 	protected boolean frontIsClear() {
-		// TODO use camera?
 		return true;
 	}
 }

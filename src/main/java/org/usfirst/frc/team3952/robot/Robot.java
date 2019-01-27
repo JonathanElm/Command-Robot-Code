@@ -133,6 +133,7 @@ public class Robot extends TimedRobot {
 	public static boolean idle() {
 		return drive.getCurrentCommandName().equals(drive.getDefaultCommandName()) && 
 			   ladder.getCurrentCommandName().equals(ladder.getDefaultCommandName()) && 
-			   ballHolder.getCurrentCommandName().equals(ballHolder.getDefaultCommandName());
+			   ballHolder.getCurrentCommandName().equals(ballHolder.getDefaultCommandName()) &&
+			   discHolder.getCurrentCommandName().equals(discHolder.getDefaultCommandName());
 	}
 }

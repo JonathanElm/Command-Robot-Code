@@ -1,6 +1,8 @@
 package org.usfirst.frc.team3952.robot.commands;
 
 import org.usfirst.frc.team3952.robot.Robot;
+import org.usfirst.frc.team3952.robot.RobotMap;
+
 import edu.wpi.first.wpilibj.command.Command;
 import org.usfirst.frc.team3952.robot.subsystems.*;
 public class MoveLadderToPos extends Command {
@@ -9,8 +11,10 @@ public class MoveLadderToPos extends Command {
     //TODO edit values for real positions (after calibration?)
     public static final int[] POSITIONS = new int[] {200, 300, 400, 500, 600, 700};
 
-    public int pos;
-    public int dir;
+    //go to
+    public double pos;
+    //true: UP, false: DOWN
+    public boolean dir;
     public int diff;
 
     private boolean finished = false;
@@ -19,28 +23,29 @@ public class MoveLadderToPos extends Command {
         requires(Robot.ladder);
         setTimeout(TIMEOUT);
         setInterruptible(false);
-        this.pos = Ladder.SWITCH_ENC[pos];
+        this.pos = POSITIONS[pos];
     }
 
     protected void initialize() {
-        dir = pos - (int)Robot.ladder.encoder.getDistance();
+        dir = (pos - Robot.ladder.encoder.getDistance()) > 0;
     }
 
     protected void execute() {
-        diff = (int)Robot.ladder.encoder.getDistance() - pos;
-        if(dir * diff >= 0) {
-            Robot.ladder.stop();
-            Robot.ladder.pos = pos;
-            finished = true;
-        } else if(diff > 0) {
+        if(dir)
             Robot.ladder.extend();
-        } else {
+        else
             Robot.ladder.retract();
-        }
+        //just in case it runs too fast for us
+        dir = (pos - Robot.ladder.encoder.getDistance()) > 0;
     }
 
     protected boolean isFinished() {
-        return finished;
+        if(Math.abs(pos - Robot.ladder.encoder.getDistance()) < 0.2)
+        {
+            ManualLadder.isMoving = false;
+            return true;
+        }
+        return false;
     }
 
     protected void end() {

@@ -16,8 +16,12 @@ public class ManualBallHolder extends Command {
     double rotateBy = 0;
 
     protected void execute() {
-        Robot.ballHolder.shoot();
-        Robot.ballHolder.retract();
+        if(Robot.mainController.shootBallHolder())
+            Robot.ballHolder.shoot();
+        else if(Robot.mainController.retractBallHolder())
+            Robot.ballHolder.retract();
+        else
+            Robot.ballHolder.stop();
     }
 
     protected boolean isFinished() {
@@ -25,10 +29,10 @@ public class ManualBallHolder extends Command {
     }
 
     protected void end() {
-    	Robot.drive.stop();
+    	Robot.ballHolder.stop();
     }
 
     protected void interrupted() {
-    	Robot.drive.stop();
+    	Robot.ballHolder.stop();
     }
 }

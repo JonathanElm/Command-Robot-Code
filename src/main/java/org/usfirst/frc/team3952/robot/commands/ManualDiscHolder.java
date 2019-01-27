@@ -16,8 +16,12 @@ public class ManualDiscHolder extends Command {
     double rotateBy = 0;
 
     protected void execute() {
-        Robot.discHolder.shoot();
-        Robot.discHolder.retract();
+        if(Robot.mainController.releaseDisc())
+            Robot.discHolder.shoot();
+        else if(Robot.mainController.grabDisc())
+            Robot.discHolder.retract();
+        else
+            Robot.discHolder.stop();
     }
 
     protected boolean isFinished() {
@@ -25,10 +29,10 @@ public class ManualDiscHolder extends Command {
     }
 
     protected void end() {
-    	Robot.drive.stop();
+    	Robot.discHolder.stop();
     }
 
     protected void interrupted() {
-    	Robot.drive.stop();
+    	Robot.discHolder.stop();
     }
 }

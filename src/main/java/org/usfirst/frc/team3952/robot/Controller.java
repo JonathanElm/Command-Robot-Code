@@ -37,12 +37,12 @@ public class Controller {
             subController = LUCAS_CONTROLLER;
             this.mainJoystick = new Joystick(0);
             this.subJoystick = new Joystick(1);
-        }else
+        }else {
             subController = SIDEWINDER_MAP;
             mainController = LUCAS_CONTROLLER;
             this.subJoystick = new Joystick(0);
             this.mainJoystick = new Joystick(1);
-             
+             }
     }
 
 

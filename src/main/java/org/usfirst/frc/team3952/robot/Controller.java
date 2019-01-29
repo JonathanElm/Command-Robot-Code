@@ -1,7 +1,5 @@
 package org.usfirst.frc.team3952.robot;
 
-import static org.junit.Assume.assumeNoException;
-
 import edu.wpi.first.wpilibj.Joystick;
 
 public class Controller {

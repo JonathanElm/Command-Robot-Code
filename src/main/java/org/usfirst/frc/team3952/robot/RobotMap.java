@@ -4,12 +4,15 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.drive.*;
 
 public class RobotMap {
+
+	//PWM
 	public static final int REAR_RIGHT_WHEEL_PORT = 1;
 	public static final int REAR_LEFT_WHEEL_PORT = 0;
 	public static final int FRONT_RIGHT_WHEEL_PORT = 3;
 	public static final int FRONT_LEFT_WHEEL_PORT = 2;
 	public static final int LADDER_PORT = 6;
 	
+	//DIO
 	public static final int REAR_RIGHT_ENCODER_PORT_1 = 2;
 	public static final int REAR_RIGHT_ENCODER_PORT_2 = 3;
 	public static final int REAR_LEFT_ENCODER_PORT_1 = 0;
@@ -25,10 +28,14 @@ public class RobotMap {
 	public static final int LADDER_TOP_LIMIT_PORT = 6;
 	public static final int LADDER_BOTTOM_LIMIT_PORT = 7;
 
+	//PNEUMATIC BOARD
 	public static final int BALL_SOLENOID_PORT_1 = 0;
 	public static final int BALL_SOLENOID_PORT_2 = 1;
 	public static final int DISC_SOLENOID_PORT_1 = 2;
 	public static final int DISC_SOLENOID_PORT_2 = 3;
+	
+	//ANALOG IN
+	public static final int QTI_SENSOR_PORT = 0;
 	
 	public static Talon frontLeftWheel;
 	public static Talon frontRightWheel;
@@ -46,6 +53,7 @@ public class RobotMap {
 	public static DigitalInput ladderBottomLimit;
 	public static DoubleSolenoid ballSolenoid;
 	public static DoubleSolenoid discSolenoid;
+	public static AnalogInput qtiSensor;
 	
 	public static void init() {
 		frontLeftWheel = new Talon(FRONT_LEFT_WHEEL_PORT);
@@ -69,5 +77,6 @@ public class RobotMap {
 		ladderEncoder = new Encoder(LADDER_ENCODER_PORT_1, LADDER_ENCODER_PORT_2, false, Encoder.EncodingType.k2X);
 		ballSolenoid = new DoubleSolenoid(BALL_SOLENOID_PORT_1, BALL_SOLENOID_PORT_2);
 		discSolenoid = new DoubleSolenoid(DISC_SOLENOID_PORT_1, DISC_SOLENOID_PORT_2);
+		qtiSensor = new AnalogInput(QTI_SENSOR_PORT);
 	}
 }

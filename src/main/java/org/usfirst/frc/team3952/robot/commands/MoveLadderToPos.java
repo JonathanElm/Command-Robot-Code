@@ -40,6 +40,8 @@ public class MoveLadderToPos extends Command {
     }
 
     protected boolean isFinished() {
+        if(RobotMap.ladderTopLimit.get() || RobotMap.ladderBottomLimit.get())
+            return true;
         if(Math.abs(pos - Robot.ladder.encoder.getDistance()) < 0.2)
         {
             ManualLadder.isMoving = false;

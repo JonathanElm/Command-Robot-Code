@@ -35,10 +35,9 @@ public class MoveToWall extends Command{
 
     }
 	
-	public MoveToWall(double distanceToWall) {
+	public MoveToWall() {
         requires(Robot.drive);
 		setInterruptible(false);
-		this.distanceToWall = distanceToWall;
 	}
 
     protected void initialize() {

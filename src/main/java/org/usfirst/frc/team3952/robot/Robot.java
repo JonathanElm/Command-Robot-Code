@@ -5,6 +5,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.command.Subsystem;
 
 import org.usfirst.frc.team3952.robot.subsystems.BallHolder;
 import org.usfirst.frc.team3952.robot.subsystems.DiscHolder;
@@ -26,11 +27,12 @@ public class Robot extends TimedRobot {
 	public static NetworkTableEntry autoAlignX;
 	public static NetworkTableEntry autoAlignY;
 	
-	public static KarelTask task;
+	
 	
 	public static int startMillis;
 	//private VisionThread visionThread;
 	//private UsbCamera camera;
+	public static Subsystem sensor;
 	
 	@Override
 	public void robotInit() {
@@ -46,7 +48,7 @@ public class Robot extends TimedRobot {
 		autoAlignX = ntable.getEntry("movex");
 		autoAlignY = ntable.getEntry("movey");
 
-		task = null;
+		
 		/*
 		Handled by co-processor.
 

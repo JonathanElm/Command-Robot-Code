@@ -37,8 +37,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-		mainController = new Controller(new Joystick(0), true);
-		ladderController = new Controller(new Joystick(1), false);
+		mainController = new Controller(true);
 		drive = new DriveTrain();
 		ladder = new Ladder();
 		ballHolder = new BallHolder();

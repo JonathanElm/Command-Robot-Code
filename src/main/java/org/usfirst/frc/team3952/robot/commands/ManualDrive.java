@@ -20,8 +20,9 @@ public class ManualDrive extends Command {
     	double hor = Robot.mainController.getHorizontalMovement();
     	double lat = Robot.mainController.getLateralMovement();
         double rot = Robot.mainController.getRotation();
-
+        System.out.println(RobotMap.limitSwitch.get());
         Robot.drive.drive(hor, lat, rot);
+        
     }
 
     protected boolean isFinished() {

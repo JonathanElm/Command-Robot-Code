@@ -22,7 +22,7 @@ public class MoveToWall extends Command {
     protected void initialize() {}
     
     protected void execute() {
-        System.out.println(RobotMap.ultrasonicSensor.getVoltage() * v2in);
+        //System.out.println(RobotMap.ultrasonicSensor.getVoltage() * v2in);
         /* actuall code
         if (getDistance() > distanceToStop ) {
             //change 0.5 for speed
@@ -31,6 +31,7 @@ public class MoveToWall extends Command {
             finished = true;
         }
         */
+        
     }
     
     protected boolean isFinished() {

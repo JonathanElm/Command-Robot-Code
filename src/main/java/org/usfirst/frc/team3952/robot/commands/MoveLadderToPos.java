@@ -42,12 +42,10 @@ public class MoveLadderToPos extends Command {
     }
 
     protected boolean isFinished() {
-        // prevent ladder from destroying robot
-        if(RobotMap.ladderTopLimit.get() || RobotMap.ladderBottomLimit.get()) {
+        if(RobotMap.ladderTopLimit.get() || RobotMap.ladderBottomLimit.get())
             return true;
-        }
-
-        if(Math.abs(pos - Robot.ladder.encoder.getDistance()) < 0.2) {
+        if(Math.abs(pos - Robot.ladder.encoder.getDistance()) < 0.2)
+        {
             ManualLadder.isMoving = false;
             return true;
         }

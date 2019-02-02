@@ -37,7 +37,8 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		RobotMap.init();
-		mainController = new Controller(true);
+		mainController = new Controller(new Joystick(0), true);
+		ladderController = new Controller(new Joystick(1), false);
 		drive = new DriveTrain();
 		ladder = new Ladder();
 		ballHolder = new BallHolder();
@@ -117,7 +118,8 @@ public class Robot extends TimedRobot {
 
 	@Override
 	public void teleopInit() {
-		Scheduler.getInstance().add(new MoveToWall());
+		Scheduler.getInstance().run();
+		
 	}
 
 	@Override

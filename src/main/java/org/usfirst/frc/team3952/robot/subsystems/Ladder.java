@@ -10,9 +10,7 @@ public class Ladder extends Subsystem {
 	public static final int FIXED_AMOUNT = 0;
 	public static final double LADDER_EXTENDING_SPEED = 0.65;
 	public static final double LADDER_RETRACTING_SPEED = 0.4;
-	
-	private Talon motor = RobotMap.ladder;
-	
+		
 	public Encoder encoder = RobotMap.ladderEncoder;
 	
 	
@@ -24,23 +22,23 @@ public class Ladder extends Subsystem {
     
     public void extend() {
     	if(!RobotMap.ladderTopLimit.get()) {
-    		motor.set(LADDER_EXTENDING_SPEED);
+    		RobotMap.ladder.set(LADDER_EXTENDING_SPEED);
     	} else {
-    		motor.set(0);
+    		RobotMap.ladder.set(0);
     	}
     }
     
     public void retract() {
     	if(!RobotMap.ladderBottomLimit.get()) {
-    		motor.set(-LADDER_RETRACTING_SPEED);   
+    		RobotMap.ladder.set(-LADDER_RETRACTING_SPEED);   
     	} else {
-    		motor.set(0);
+    		RobotMap.ladder.set(0);
     		encoder.reset();
     	}
     }
     
     public void stop() {
-    	motor.set(0);
+    	RobotMap.ladder.set(0);
     }
 }
 

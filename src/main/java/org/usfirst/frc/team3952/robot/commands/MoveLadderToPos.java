@@ -37,6 +37,8 @@ public class MoveLadderToPos extends Command {
             Robot.ladder.retract();
         //just in case it runs too fast for us
         dir = (pos - Robot.ladder.encoder.getDistance()) > 0;
+
+       
     }
 
     protected boolean isFinished() {

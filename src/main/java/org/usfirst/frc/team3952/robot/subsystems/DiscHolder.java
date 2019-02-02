@@ -1,7 +1,7 @@
 package org.usfirst.frc.team3952.robot.subsystems;
 
 import org.usfirst.frc.team3952.robot.RobotMap;
-import org.usfirst.frc.team3952.robot.commands.ManualBallHolder;
+import org.usfirst.frc.team3952.robot.commands.*;
 
 import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -12,7 +12,7 @@ public class DiscHolder extends Subsystem {
 	public boolean extended;
 	
     public void initDefaultCommand() {
-    	setDefaultCommand(new ManualBallHolder());
+    	setDefaultCommand(new ManualDiscHolder());
     }
     
     public void shoot() {

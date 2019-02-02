@@ -14,8 +14,7 @@ public class Ladder extends Subsystem {
 	private Talon motor = RobotMap.ladder;
 	
 	public Encoder encoder = RobotMap.ladderEncoder;
-	public DigitalInput topLimit = RobotMap.ladderTopLimit;
-	public DigitalInput bottomLimit = RobotMap.ladderBottomLimit;
+	
 	
 	public int pos = 0;
 	
@@ -24,7 +23,7 @@ public class Ladder extends Subsystem {
     }
     
     public void extend() {
-    	if(!topLimit.get()) {
+    	if(!RobotMap.ladderTopLimit.get()) {
     		motor.set(LADDER_EXTENDING_SPEED);
     	} else {
     		motor.set(0);
@@ -32,7 +31,7 @@ public class Ladder extends Subsystem {
     }
     
     public void retract() {
-    	if(!bottomLimit.get()) {
+    	if(!RobotMap.ladderBottomLimit.get()) {
     		motor.set(-LADDER_RETRACTING_SPEED);   
     	} else {
     		motor.set(0);

@@ -11,6 +11,8 @@ public class RobotMap {
 	public static final int FRONT_RIGHT_WHEEL_PORT = 3;
 	public static final int FRONT_LEFT_WHEEL_PORT = 2;
 	public static final int LADDER_PORT = 6;
+	//PWN testing
+	public static final int ROBO_CLAW_ENABLER_PORT = 4;
 	
 	//DIO
 	//public static final int REAR_RIGHT_ENCODER_PORT_1 = 2;
@@ -56,7 +58,7 @@ public class RobotMap {
 	public static DoubleSolenoid discSolenoid;
 	public static AnalogInput qtiSensor;
 	public static AnalogInput ultrasonicSensor;
-
+	public static Servo clawDeploy;
 	public static DigitalInput limitSwitch;
 	
 	
@@ -66,6 +68,7 @@ public class RobotMap {
 		rearLeftWheel = new Talon(REAR_LEFT_WHEEL_PORT);
 		rearRightWheel = new Talon(REAR_RIGHT_WHEEL_PORT);
 		drive = new MecanumDrive(frontLeftWheel, frontRightWheel, rearLeftWheel, rearRightWheel);
+		clawDeploy = new Servo(ROBO_CLAW_ENABLER_PORT);
 
 		frontLeftEncoder = new Encoder(FRONT_LEFT_ENCODER_PORT_1,FRONT_LEFT_ENCODER_PORT_2, false, Encoder.EncodingType.k1X);
 		frontLeftEncoder.setDistancePerPulse(-0.007266115676069);

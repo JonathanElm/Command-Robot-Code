@@ -20,16 +20,19 @@ public class Controller {
 
     // MAP(literally every level of the ladder)
     // used to be known as the BAD_CONTROLLER
-    final static int[] LUCAS_CONTROLLER = {1, 2, 3, 4, 5};
+    final static int[] LUCAS_CONTROLLER = {1, 2, 3, 4, 5, 6};
 
     int[] currentController;
 
+    //find a way to make this safer so if only one controller is wired it will not map the secondary controller
     public Controller(Joystick joystick, boolean isMain) {
         this.joystick = joystick;
-        if(isMain)
+        if(isMain){
             currentController = SIDEWINDER_MAP;
-        else
+        }
+        else{
             currentController = LUCAS_CONTROLLER;
+        }
     }
 
     public double getHorizontalMovement() {
@@ -77,8 +80,13 @@ public class Controller {
     //For the bad/Lucas controller
     public boolean goToLadder(int level)
     {
-        return joystick.getRawButton(level);
+        if(level < 6){
+            return joystick.getRawButton(level);
+        }
+        return false;
     }
-
+     public boolean moveBack(){
+        return joystick.getRawButton(currentController[5]);
+     }
     
 }

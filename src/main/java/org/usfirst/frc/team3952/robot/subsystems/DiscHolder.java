@@ -7,7 +7,8 @@ import edu.wpi.first.wpilibj.*;
 import edu.wpi.first.wpilibj.command.Subsystem;
 
 public class DiscHolder extends Subsystem {	
-	private DoubleSolenoid piston = RobotMap.discSolenoid;
+    private DoubleSolenoid piston = RobotMap.discSolenoid;
+    
 	
 	public boolean extended;
 	

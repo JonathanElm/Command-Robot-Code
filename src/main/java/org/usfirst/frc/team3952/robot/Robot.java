@@ -110,6 +110,13 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().add(auto);
 		auto.close();
 	}
+
+	public static void backUp(){
+		CommandGroup bip = new CommandGroup();
+		bip.addSequential(new MoveBack(1));
+		Scheduler.getInstance().add(bip);
+		bip.close();
+	}
 	
 	@Override
 	public void autonomousPeriodic() {

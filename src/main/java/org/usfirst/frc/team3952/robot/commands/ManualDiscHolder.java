@@ -18,8 +18,12 @@ public class ManualDiscHolder extends Command {
     protected void execute() {
         if(Robot.mainController.releaseDisc())
             Robot.discHolder.shoot();
-        else if(Robot.mainController.grabDisc())
+        else if(Robot.mainController.grabDisc()){
             Robot.discHolder.retract();
+            if(Robot.ladderController.moveBack()){
+                Robot.backUp();
+            }
+        }
         else
             Robot.discHolder.stop();
     }
